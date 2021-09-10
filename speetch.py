@@ -14,8 +14,8 @@ class Speetch:
     # create a speech recognition object
     def __init__(self):
       
-        apikey="PO4LUUqowvXZZWm34enwHpV4twziHGEfa8GZVDhazGUR"
-        url="https://api.au-syd.speech-to-text.watson.cloud.ibm.com/instances/08a8717e-1908-461f-974c-5c0ee0b37d19"
+        apikey="IBM_WATSON_key"
+        url="IBM_WATSON_URL"
         authenticator=IAMAuthenticator(apikey)
         self.service = SpeechToTextV1(authenticator = authenticator)
         self.service.set_service_url(url)
