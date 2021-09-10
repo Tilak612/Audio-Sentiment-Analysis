@@ -1,0 +1,126 @@
+
+<div class="chart-grid">  
+<div class="chart-sales">
+    <div class="chart-head">
+        <h3>Sentiment Analysis chart (in %):</h3>
+    </div>
+
+    <div id="donut-example" style="height: 250px;  width:100%"></div>
+</div>
+<div class="rating-spectgram">
+  <div class="chart-follow">
+    <div class="chart-head">
+        <h3>Sentiment Analysis:</h3>
+    </div>
+    <svg style="display: none;">
+      <symbol id="star" viewBox="0 0 98 92">
+      <title>star</title>
+      <path stroke='green' stroke-width='5' d='M49 73.5L22.55 87.406l5.05-29.453-21.398-20.86 29.573-4.296L49 6l13.225 26.797 29.573 4.297-21.4 20.86 5.052 29.452z' fill-rule='evenodd'/>
+      
+      <symbol id="star1" viewBox="0 0 98 92">
+      <title>star</title>
+      <path stroke='orange' stroke-width='5' d='M49 73.5L22.55 87.406l5.05-29.453-21.398-20.86 29.573-4.296L49 6l13.225 26.797 29.573 4.297-21.4 20.86 5.052 29.452z' fill-rule='evenodd'/>
+      
+      <symbol id="star2" viewBox="0 0 98 92">
+      <title>star</title>
+      <path stroke='red' stroke-width='5' d='M49 73.5L22.55 87.406l5.05-29.453-21.398-20.86 29.573-4.296L49 6l13.225 26.797 29.573 4.297-21.4 20.86 5.052 29.452z' fill-rule='evenodd'/>
+  </svg>
+    <div  id="Analysis" style="width:580px;">
+      <div id="starinline">
+        <span>
+          <table align="center">
+
+            <tr>
+              <th>
+                <input type="checkbox" id="menu-toggle3">
+
+                <div class="rating">
+                    <div class="rating__button" >
+                        <svg class="rating__star">
+                        <use xlink:href="#star"></use>
+                        </svg>
+                    </div>
+                </div>
+              </th>
+              <th>
+                <input type="checkbox" id="menu-toggle1">
+
+                <div class="rating1">
+                  <div class="rating__button" >
+                      <svg class="rating__star">
+                      <use xlink:href="#star1"></use>
+                    </svg>
+                  </div>
+              </div>
+          
+              </th>
+              <th>
+                <input type="checkbox" id="menu-toggle2">
+
+                <div class="rating2">
+                  <div class="rating__button" >
+                      <svg class="rating__star">
+                      <use xlink:href="#star2"></use>
+                    </svg>
+                  </div>
+              </div>
+              </th>
+            </tr>
+
+         
+
+            <tr>
+              <td>       
+                 <div class="rating">
+                <div class="rating__button1" >
+                    <svg class="rating__star">
+                    <use xlink:href="#star"></use>
+                    </svg>
+                </div>
+                </div>&nbsp; Positive &nbsp;&nbsp;</td>
+              <td>  <div class="rating1">
+                <div class="rating__button2" >
+                    <svg class="rating__star">
+                    <use xlink:href="#star1"></use>
+                  </svg>
+                </div>
+            </div>&nbsp;Neutral &nbsp;&nbsp;</td>
+              <td>     <div class="rating2">
+                <div class="rating__button3" >
+                    <svg class="rating__star">
+                    <use xlink:href="#star2"></use>
+                  </svg>
+                </div>
+            </div>&nbsp;Negative </td>
+            </tr>
+          </table>
+        </span>
+      </div>
+   
+    </div>
+  </div> 
+  <div class="chart-follow" style="margin-top: 1rem;">
+    <div class="chart-head">
+        <h3>Audio Spectrogram</h3>
+       <div>
+        <input type="checkbox" id="pause1" hidden>
+
+        <label for="pause1" id="pause"   ><span class="las la-play-circle audio-button" style="font-size: 1.5rem;"></span></label>
+        <input type="checkbox" id="mute1" hidden>
+      
+        <label for="mute1" id="mute"  ><span class="las la-volume-mute audio-button" style="font-size: 1.5rem;"></span></label>
+      
+        
+       </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.1.10/wavesurfer.min.js"></script>
+
+    <section id="waveform_box">
+      <div id="waveform" onclick="wavesurfer.playPause();" style="width: 100%;">
+        <!-- wavesurfer.js will fill the content -->
+      </div>
+    </section>
+                    
+  </div> 
+</div>
+</div>

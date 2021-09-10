@@ -1,0 +1,67 @@
+<html>
+   <head>
+      <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>		
+   </head>
+   <body>
+      <form id="upload-file" method="post" enctype="multipart/form-data">
+         <fieldset>
+             <input name="file" id='input_file' type="file">
+           
+             
+             <button id="upload-file-fff" type="button">Upload</button>
+
+
+         </fieldset>
+         <fieldset>
+             <div id="audio_name"></div>
+             <button id="upload-file-btn" type="button">Upload</button>
+         </fieldset>
+     </form>  
+     <div id="song"></div> 
+   <script> 
+    var a=false; 
+   $(document).ready(function(){
+   function data1(){
+       a=true;
+    $('#input_file').click();
+    a= false;
+   }
+
+      $(document).on('click', '#upload-file-btn', function(){
+       
+        $('#input_file').click();
+        $('#input_file').change(function() {
+          var audio_file_path= $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
+          if(audio_file_path !=""){
+            var form_data = new FormData($('#upload-file')[0]);
+            console.log(form_data)
+            $.ajax({
+                type: 'POST',
+                url: '/upload',
+                data: form_data,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                  $('#song').html(data['song']);
+
+                  console.log(data);
+                    console.log('Success!');
+                },
+            });
+          }
+     });
+            
+        });
+      });
+
+   
+   </script>
+   <script type="text/javascript">
+    function open_file(){
+        $('#input_file').click();
+
+    }
+  </script>
+   </body>
+</html>

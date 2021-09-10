@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet"  href= "{{ url_for('static',filename='/css/style2.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+    <title>Audio Sentiment Analysis</title>
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle">
+    <div class="sidebar">
+        <div class="brand">
+            <span class="lab la-affiliatetheme"></span>
+            <h3>Audio Sentiment Analysis</h3>
+        </div>
+        <div class="sidemenu">
+            <div class="side-user">
+                <div class="side-img" style="background-image: url(/static/image/1.jpg);"></div>
+                <div class="user-role">
+                    <small>Software developer</small>
+                    <p>code resource</p>
+                </div>
+            </div>
+            <ul>
+                <li >
+                    <a href="#" data-item="Dashboard" class="active">
+                        <span class="las la-home" ></span>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-item="Information">
+                        <span class="las la-info"></span>
+                        <span>Information </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+    <div class="main-content">
+        <header>
+            <label for="menu-toggle" class="menu-toggler">
+                <span class="las la-bars"></span>
+            </label>
+            <div class="search">
+                <span class="las la-search"></span>
+                <input type="search" placeholder="Enter keyword">
+            </div>
+            <div class="head-icons">
+                <span class="las la-bell"></span>
+                <span class="las la-bookmark"></span>
+                <span class="las la-comment"></span>
+            </div>
+        </header>
+        <main>
+           
+        </main>
+    </div>
+    <label for="menu-toggle" class="close-mobile-menu"></label>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+    <script>
+        $(document).ready(function(e) {
+          var audio_upload_button=`<div class="cards">
+            <div class="card">
+              <div class="chart-head" style="padding: 1rem 2rem;">
+                    <h3>Select a file</h3>
+                    <form id="upload-file" method="post" enctype="multipart/form-data" style="font-size: 1.5rem;">
+                        <input name="file" id='input_file' type="file" title="select audio file (.wav)" accept=".wav" hidden>
+                        
+                        <span id="audio_name"></span>
+                        
+                        <span id="upload-file-btn"  type="button"><span class="las la-cloud-upload-alt audio-button" style="font-size: 2.1rem;width:2.5rem;height: 2.5rem;"></span> </span>
+                    </form>  
+                </div>
+                <div class="card_audio-to-text" >
+                    <div class="chart-head">
+                        <h3>Voice to text:</h3>
+                    </div>
+                
+                    <div class="audio-to-text" id="song"></div> 
+                <div>
+                
+            </div>
+        </div>
+        <div class="upload_audio"></div>  
+        `
+          $('main').html(audio_upload_button);
+          $(".upload_audio").load("/static/page/audio.html");
+
+            $('ul li a').on('click',function(){
+               $('li a').removeClass("active");
+               $(this).addClass("active")
+               var load_html= $(this).attr("data-item")
+               console.log(load_html)
+               if(load_html=="Dashboard"){
+                $('main').html(audio_upload_button);
+                $(".upload_audio").load("/static/page/audio.html");
+               }
+               if(load_html=="Information"){
+                $('main').load("/static/page/information.html")
+                }
+               
+        });
+              function wavesurfer_audio(file_path){
+              wavesurfer = WaveSurfer.create({
+                container: '#waveform',
+                waveColor: '#5B88C8',
+                progressColor: '#264E73',
+                normalize: true,
+                interact: true
+        
+              });
+              wavesurfer.load("/static/audio/mp3/"+file_path); // load audio
+
+              $(document).on('click', '#pause', function(){
+                wavesurfer.playPause()
+        
+                if ($("#pause1").is(":checked")) {
+                  $('#pause span').removeClass("la-pause-circle");
+                  $('#pause span').addClass("la-play-circle")
+        
+                    console.log("pause")
+        
+                } else {
+                  $('#pause span').addClass("la-pause-circle")
+                  $('#pause span').removeClass("la-play-circle");
+                  console.log("play")
+        
+                }       
+              });
+              $(document).on('click', '#mute', function(){
+                wavesurfer.toggleMute();  
+        
+                if ($("#mute1").is(":checked")) {
+                  $('#mute span').removeClass("la-volume-up");
+                  $('#mute span').addClass("la-volume-mute")
+        
+        
+                  console.log("unmute")
+                } else {
+                  
+                  $('#mute span').removeClass("la-volume-mute");
+                  $('#mute span').addClass("la-volume-up")
+                  console.log("mute")
+                }    
+              }); 
+    
+            }
+      
+      
+        
+             
+              function rating_checked(result,pos_word,neg_word,neu_word){
+                console.log(result)
+                if(result=="Positive"){
+                  $("#menu-toggle3").prop("checked", true);
+                }
+                if(result=="Negative"){
+                  $("#menu-toggle2").prop("checked", true);
+  
+                }
+                if(result=="netural"){
+                  $("#menu-toggle1").prop("checked", true);                
+                }
+             
+          
+              }
+              function Donut (pos_word,neg_word,neu_word){
+                
+                new Morris.Donut({
+                  element: 'donut-example',
+                  data: [
+                    {label: "Positive ", value: pos_word},
+                    {label: "Negative ", value: neg_word},
+                    {label: "Neutral ", value: neu_word}
+                  ],
+                  colors:["green",'red','orange'],
+                  labelColor:'#ffffff'
+                });
+  
+              }
+              
+               $(document).on('click', '#upload-file-btn', function(e){
+
+                e.preventDefault();
+                e.stopPropagation(); 
+                $('#input_file').click();
+             $('#input_file').change(function() {
+              $("#audio_name").html( $('input[type=file]').val().replace(/C:\\fakepath\\/i, ''));
+
+          var audio_file_path= $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
+          if(audio_file_path !=""){
+            $( "main" ).append('<div id="loading-bar-spinner" class="spinner"><div class="spinner-icon"></div></div>' );
+            $(".upload_audio").load("/static/page/audio.html");
+
+            var a_song;
+                     var form_data = new FormData($('#upload-file')[0]);
+                  
+                     $.ajax({
+                         type: 'POST',
+                         url: '/upload',
+                         data: form_data,
+                         contentType: false,
+                         cache: false,
+                         processData: false,
+                         success: function(data) {
+                          if(data!="error"){
+                            $("#loading-bar-spinner").remove()
+                            $('.audio-to-text').html(data['song']);
+                            rating_checked(data['sentiment_result'],data['postive'],data['negative'],data['netural']);
+                            Donut(data['postive'],data['negative'],data['netural']);
+                            console.log(data);
+                            wavesurfer_audio(data['data']);
+                            a_song=data['song']  
+                          }
+                          else{
+                            $("#loading-bar-spinner").remove()
+
+                            alert("file is corrupt! choose other")
+                          }
+                         
+                         },
+                         error:function(data){
+                          $("#loading-bar-spinner").remove()
+
+                          alert("file is corrupt! choose other")
+
+                         }
+                     });
+                  
+
+              }});
+
+                     
+                 });
+               });
+         
+            
+            </script>
+</body>
+</html>
